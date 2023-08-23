@@ -8,14 +8,14 @@ Config.RenderDistance = 20.0 -- Model Display Radius.
 
 Config.InteractDistance = 2.0 -- Interact Radius
 
-Config.UseTarget = false -- When set to true, it'll use targeting instead of key-presses to interact.
+Config.UseTarget = true -- When set to true, it'll use targeting instead of key-presses to interact.
 
 Config.NoModelTargeting = true -- When set to true and using Target, it'll spawn a small invisible prop so you can third-eye when no entity is defined.
 
 Config.Marker = { -- This will only be used if enabled, not using target, and no model is defined in the interaction.
     enabled = true,
     id = 2,
-    scale = 0.25, 
+    scale = 0.25,
     color = {255, 255, 255, 127}
 }
 
@@ -25,19 +25,19 @@ Config.ServeTimeOffline = false -- When set to true, players can serve their tim
 
 Config.EnableSneakout = false -- When set to true, anytime the player is outside the prison without being part of a breakout, they are freed instead of being brought back.
 
-Config.XPEnabled = true -- When set to true, this will enable Pickle's XP compatibility, and enable xp rewards.
+Config.XPEnabled = false -- When set to true, this will enable Pickle's XP compatibility, and enable xp rewards.
 
 Config.XPCategories = { -- Registered XP Types for Pickle's XP.
     ["strength"] = {
-        label = "Strength", 
-        xpStart = 1000, 
-        xpFactor = 0.2, 
+        label = "Strength",
+        xpStart = 1000,
+        xpFactor = 0.2,
         maxLevel = 100
     },
     ["cooking"] = {
-        label = "Cooking", 
-        xpStart = 1000, 
-        xpFactor = 0.2, 
+        label = "Cooking",
+        xpStart = 1000,
+        xpFactor = 0.2,
         maxLevel = 100
     },
 }
@@ -45,55 +45,55 @@ Config.XPCategories = { -- Registered XP Types for Pickle's XP.
 Config.Default = {
     permissions = { -- Permissions settings for jailing, unjailing, and other things.
         jail = {
-            jobs = {["police"] = 0, ["corrections"] = 0}, -- ["job_name"] = rank_number, ["job_name2"] = rank_number2,
+            jobs = {["police"] = 0}, -- ["job_name"] = rank_number, ["job_name2"] = rank_number2,
             groups = {"admin", "god"} -- "group1", "group2"
         },
         unjail = {
-            jobs = {["police"] = 2, ["corrections"] = 2},
+            jobs = {["police"] = 2},
             groups = {"admin", "god"}
         },
         alert = {
-            jobs = {["police"] = 0, ["corrections"] = 0},
+            jobs = {["police"] = 0},
             groups = {"admin", "god"}
         },
     },
     outfit = { -- Prisoner outfits to set when in jail. Please change this according to your server's clothing numbers.
         male = {
             ['arms'] = 0,
-            ['tshirt_1'] = 15, 
+            ['tshirt_1'] = 15,
             ['tshirt_2'] = 0,
-            ['torso_1'] = 86, 
+            ['torso_1'] = 86,
             ['torso_2'] = 0,
             ['bproof_1'] = 0,
             ['bproof_2'] = 0,
-            ['decals_1'] = 0, 
+            ['decals_1'] = 0,
             ['decals_2'] = 0,
             ['chain_1'] = 0,
             ['chain_2'] = 0,
-            ['pants_1'] = 10, 
+            ['pants_1'] = 10,
             ['pants_2'] = 2,
-            ['shoes_1'] = 56, 
+            ['shoes_1'] = 56,
             ['shoes_2'] = 0,
-            ['helmet_1'] = 14, 
+            ['helmet_1'] = 14,
             ['helmet_2'] = 0,
         },
         female = {
             ['arms'] = 0,
-            ['tshirt_1'] = 15, 
+            ['tshirt_1'] = 15,
             ['tshirt_2'] = 0,
-            ['torso_1'] = 86, 
+            ['torso_1'] = 86,
             ['torso_2'] = 0,
             ['bproof_1'] = 0,
             ['bproof_2'] = 0,
-            ['decals_1'] = 0, 
+            ['decals_1'] = 0,
             ['decals_2'] = 0,
             ['chain_1'] = 0,
             ['chain_2'] = 0,
-            ['pants_1'] = 10, 
+            ['pants_1'] = 10,
             ['pants_2'] = 2,
-            ['shoes_1'] = 56, 
+            ['shoes_1'] = 56,
             ['shoes_2'] = 0,
-            ['helmet_1'] = 14, 
+            ['helmet_1'] = 14,
             ['helmet_2'] = 0,
         }
     }
@@ -108,7 +108,7 @@ Config.Activities = {
                 rewards = { -- Rewards for completing the section.
                     {type = "xp", name = "strength", amount = 1000},
                 },
-                process = function(data) -- Section function. 
+                process = function(data) -- Section function.
                     local ped = PlayerPedId()
                     FreezeEntityPosition(ped, true)
                     SetEntityCoords(ped, data.coords.x, data.coords.y, data.coords.z - 1.0)
@@ -118,7 +118,7 @@ Config.Activities = {
                     local off, rot = vector3(0.0, 0.0, 0.0), vector3(0.0, 0.0, 0.0)
                     AttachEntityToEntity(prop, ped, GetPedBoneIndex(ped, 28422), off.x, off.y, off.z, rot.x, rot.y, rot.z, false, false, false, true, 2, true)
                     local result
-                    for i=1, 3 do 
+                    for i=1, 3 do
                         result = lib.skillCheck({'easy', 'medium', 'easy'}, {'e'})
                         if not result then
                             break
@@ -128,7 +128,7 @@ Config.Activities = {
                     FreezeEntityPosition(ped, false)
                     ClearPedTasks(ped)
                     DeleteEntity(prop)
-                    return result 
+                    return result
                 end
             },
             ["situp"] = {
@@ -136,14 +136,14 @@ Config.Activities = {
                 rewards = { -- Rewards for completing the section.
                     {type = "xp", name = "strength", amount = 1000},
                 },
-                process = function(data) -- Section function. 
+                process = function(data) -- Section function.
                     local ped = PlayerPedId()
                     FreezeEntityPosition(ped, true)
                     SetEntityCoords(ped, data.coords.x, data.coords.y, data.coords.z - 1.0)
                     SetEntityHeading(ped, data.heading)
                     PlayAnim(ped, "amb@world_human_sit_ups@male@idle_a", "idle_a", -8.0, 8.0, -1, 1, 1.0)
                     local result
-                    for i=1, 3 do 
+                    for i=1, 3 do
                         result = lib.skillCheck({'easy', 'medium', 'easy'}, {'e'})
                         if not result then
                             break
@@ -152,7 +152,7 @@ Config.Activities = {
                     end
                     FreezeEntityPosition(ped, false)
                     ClearPedTasks(ped)
-                    return result 
+                    return result
                 end
             },
             ["pushup"] = {
@@ -160,14 +160,14 @@ Config.Activities = {
                 rewards = { -- Rewards for completing the section.
                     {type = "xp", name = "strength", amount = 1000},
                 },
-                process = function(data) -- Section function. 
+                process = function(data) -- Section function.
                     local ped = PlayerPedId()
                     FreezeEntityPosition(ped, true)
                     SetEntityCoords(ped, data.coords.x, data.coords.y, data.coords.z - 1.0)
                     SetEntityHeading(ped, data.heading)
                     PlayAnim(ped, "amb@world_human_push_ups@male@idle_a", "idle_d", -8.0, 8.0, -1, 1, 1.0)
                     local result
-                    for i=1, 3 do 
+                    for i=1, 3 do
                         result = lib.skillCheck({'easy', 'medium', 'easy'}, {'e'})
                         if not result then
                             break
@@ -176,7 +176,7 @@ Config.Activities = {
                     end
                     FreezeEntityPosition(ped, false)
                     ClearPedTasks(ped)
-                    return result 
+                    return result
                 end
             },
             ["pullup"] = {
@@ -192,7 +192,7 @@ Config.Activities = {
                     TaskStartScenarioInPlace(ped, "prop_human_muscle_chin_ups", 0, -1)
                     Wait(3000)
                     local result
-                    for i=1, 3 do 
+                    for i=1, 3 do
                         result = lib.skillCheck({'easy', 'medium', 'easy'}, {'e'})
                         if not result then
                             break
@@ -201,7 +201,7 @@ Config.Activities = {
                     end
                     FreezeEntityPosition(ped, false)
                     ClearPedTasks(ped)
-                    return result 
+                    return result
                 end
             },
         }
@@ -214,7 +214,7 @@ Config.Activities = {
                 rewards = { -- Rewards for completing the section.
                     {type = "cash", amount = 50},
                 },
-                process = function(data) -- Section function. 
+                process = function(data) -- Section function.
                     local ped = PlayerPedId()
                     FreezeEntityPosition(ped, true)
                     SetEntityCoords(ped, data.coords.x, data.coords.y, data.coords.z)
@@ -238,7 +238,7 @@ Config.Activities = {
             ["stock"] = {
                 label = "Collect Ingredients",
                 rewards = nil, -- Rewards for completing the section.
-                process = function(data) -- Section function. 
+                process = function(data) -- Section function.
                     local ped = PlayerPedId()
                     FreezeEntityPosition(ped, true)
                     SetEntityHeading(ped, data.heading)
@@ -252,13 +252,13 @@ Config.Activities = {
             ["cook"] = {
                 label = "Cook Food",
                 rewards = nil, -- Rewards for completing the section.
-                process = function(data) -- Section function. 
+                process = function(data) -- Section function.
                     local ped = PlayerPedId()
                     FreezeEntityPosition(ped, true)
                     SetEntityHeading(ped, data.heading)
                     TaskStartScenarioInPlace(ped, "PROP_HUMAN_BBQ", 0, 1)
                     local result
-                    for i=1, 3 do 
+                    for i=1, 3 do
                         result = lib.skillCheck({'easy', 'medium', 'easy'}, {'e'})
                         if not result then
                             break
@@ -267,13 +267,13 @@ Config.Activities = {
                     end
                     FreezeEntityPosition(ped, false)
                     ClearPedTasks(ped)
-                    return result 
+                    return result
                 end
             },
             ["toppings"] = {
                 label = "Add Toppings",
                 rewards = nil, -- Rewards for completing the section.
-                process = function(data) -- Section function. 
+                process = function(data) -- Section function.
                     local ped = PlayerPedId()
                     FreezeEntityPosition(ped, true)
                     SetEntityHeading(ped, data.heading)
@@ -288,12 +288,12 @@ Config.Activities = {
                 label = "Deliver Food",
                 rewards = {-- Rewards for completing the section.
                     {type = "cash", amount = 200},
-                    {type = "xp", name = "cooking", amount = 1000},  
+                    {type = "xp", name = "cooking", amount = 1000},
                 },
-                process = function(data) -- Section function. 
+                process = function(data) -- Section function.
                     local ped = PlayerPedId()
                     local prop = GetActivityEntity("tray")
-                    if not object then 
+                    if not object then
                         prop = CreateProp(`prop_food_tray_03`, data.coords.x, data.coords.y, data.coords.z + 1.0, true, true, false)
                         AddActivityEntity("tray", prop)
                         local off, rot = vector3(0.0, 0.0, 0.0), vector3(0.0, 0.0, 0.0)
@@ -331,7 +331,7 @@ Config.Breakout = {
     model = {modelType = "prop", hash = `prop_rock_1_i`, offset = vector3(0.0, 0.0, -0.2)},
     required = {
         {type = "item", name = "shovel", amount = 1},
-    }, 
+    },
     process = function(data)
         local ped = PlayerPedId()
         FreezeEntityPosition(ped, true)
@@ -342,7 +342,7 @@ Config.Breakout = {
         local off, rot = vector3(0.0, 0.0, 0.0), vector3(0.0, 0.0, 0.0)
         AttachEntityToEntity(prop, ped, GetPedBoneIndex(ped, 28422), off.x, off.y, off.z, rot.x, rot.y, rot.z, false, false, false, true, 2, true)
         local result
-        for i=1, 3 do 
+        for i=1, 3 do
             result = lib.skillCheck({'easy', 'medium', 'easy'}, {'e'})
             if not result then
                 break
@@ -352,9 +352,9 @@ Config.Breakout = {
         FreezeEntityPosition(ped, false)
         ClearPedTasks(ped)
         DeleteEntity(prop)
-        return result 
+        return result
     end
-}   
+}
 
 Config.Alerts = function(index, disabled)
     local prison = Config.Prisons[index]
@@ -369,9 +369,9 @@ Config.Prisons = {
     ["default"] = { -- Default is used as the prison location for players when not defined otherwise.
         label = "Boilingbroke Penitentiary", -- Prison label for notifications & texts.
         coords = vector3(1691.8187, 2604.5383, 45.5648), -- Location of the prison.
-        radius = 250.0, -- This is the radius that prisoners will be freed at when exceeding this number. 
-        permissions = nil, -- When nil, defaults to Config.Default.permissions.  
-        outfit = nil, -- When nil, defaults to Config.Default.outfit.  
+        radius = 250.0, -- This is the radius that prisoners will be freed at when exceeding this number.
+        permissions = nil, -- When nil, defaults to Config.Default.permissions.
+        outfit = nil, -- When nil, defaults to Config.Default.outfit.
         blip = {
             label = "Boilingbroke Penitentiary",
             coords = vector3(1691.8187, 2604.5383, 45.5648),
@@ -391,7 +391,7 @@ Config.Prisons = {
             start = {
                 coords = vector3(1759.4132, 2471.3728, 45.7407),
                 heading = 211.9629
-            }, 
+            },
             enter = {
                 coords = vector3(-472.8028, 2089.3516, 120.0673),
                 heading = 195.9083
@@ -588,7 +588,7 @@ Config.Prisons = {
                     },
                 }
             },
-            
+
         },
         lootables = {
             {
